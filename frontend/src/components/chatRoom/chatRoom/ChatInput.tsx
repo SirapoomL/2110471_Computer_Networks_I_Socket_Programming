@@ -99,7 +99,7 @@ export default function ChatInput () {
 
     return (
         <Container>
-            <StickerSelector onSelect={handleSendSticker} show={showStickerSelector} />
+            <StickerSelector onSelect={handleSendSticker} />
             <InputContainer>
                 <Input
                     id="input-message"

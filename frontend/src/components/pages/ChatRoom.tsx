@@ -1,5 +1,4 @@
 import { useUser } from "../UserProvider"
-import { TopBar } from "../chatRoom/TopBar";
 import { RoomListContainer } from "../chatRoom/roomList/RoomListContainer";
 import { ChatRoomContainer } from "../chatRoom/chatRoom/ChatRoomContainer";
 import { UserListContainer } from "../chatRoom/userList/UserListContainer";
@@ -57,7 +56,6 @@ export function ChatRoom() {
           display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "#1A202C", 
           borderLeft: "10px solid #1A202C", borderRight: "10px solid #1A202C"
         }}>
-          <TopBar/>
           <UserListContainer/>
         </div>
       </div>

@@ -4,18 +4,21 @@ import ReactSwitch from "react-switch";
 
 import "./component.css"
 import { LIGHTCOLOR, DARKCOLOR } from "./theme";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
     const [username, setUsername ] = useState("");
     const [userProfilePic, setUserProfilePic ] = useState<Number>(1);
     const [errorName, setErrorName] = useState(false);
     const [theme, setTheme] = useState("lighttheme");
+    const navigate = useNavigate();
     const handleNext = () => {
-      if(username===""){
-        setErrorName(true)
-        return;
-      }setErrorName(false)
-    //   startChatRoomPage();
+        if(username===""){
+            setErrorName(true)
+            return;
+        }
+        setErrorName(false)
+        navigate("/chat");
     }
     const handleChooseProfile = (profileNumber : number) => {
         setUserProfilePic(profileNumber);

@@ -86,19 +86,6 @@ server.listen(PORT, ()=> {
     console.log(moment().format(date_time_format[0]))
 })
 
-//connect mongodb atlas
-const mongo_uri = process.env.MONGODB_URI;
-mongoose.Promise = global.Promise;
-mongoose.connect(
-    mongo_uri,
-    { useNewUrlParser: true },
-).then((res) => console.log('db connection established'))
-.catch(err => console.log(err));
-
-//mongodb error handler
-mongoose.connection.on("error", (err) => {
-  console.error("MongoDB error", err);
-});
 
 exports.app = app;
 exports.io = io;

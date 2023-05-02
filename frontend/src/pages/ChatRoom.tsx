@@ -91,13 +91,8 @@ export default function ChatPage() {
                     {/* </div> */}
                 </div>
                 {/* Chat Zone */}
-                <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"50vw",height:"100vh",backgroundColor:getTheme().secondary}}>
-                    <div id="chat-messages-container" style={{
-                        minWidth:"20rem", flex:"1 1 auto", overflowY:"auto",
-                        // background: "linear-gradient(90deg, #2E3440, #4C566A)"
-                        backgroundColor: "#2E3440"
-                        // backgroundColor: "#f9fafb"
-                    }}>
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"50vw",height:"100vh",backgroundColor:getTheme().lighter}}>
+                    <div id="chat-messages-container" style={{marginTop:"15px",width:"95%", flex:"1 1 auto", overflowY:"auto", background:getTheme().secondary}}>
                     {room !== "" ? 
                         messages?.map((msg, idx) => (<Message key={idx} msg={msg}/>))
                         : <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100%"}}>

@@ -98,14 +98,15 @@ export default function ChatInput () {
 
 
     return (
-        <Container>
+        <Container style={{width:"95%",marginBottom:"15px"}}>
             <StickerSelector onSelect={handleSendSticker} show={showStickerSelector} />
             <InputContainer>
                 <Input
+                    style={{color:"black",paddingInline:"3%"}}
                     id="input-message"
                     rows={1}
                     // value={message}
-                    placeholder="Type a message"
+                    placeholder="Send a message"
                     // onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {

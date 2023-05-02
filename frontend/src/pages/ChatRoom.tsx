@@ -98,11 +98,9 @@ export default function ChatPage() {
                 </div>
                 {/* List of People */}
                 <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"20vw",height:"100vh",backgroundColor:getTheme().primary}}>
-
+                     <UserListContainer/>
                 </div>
-                    <UserListContainer/>
-                <div>
-                </div>
+                    
             </div>
         </div>
                 </SocketProvider>

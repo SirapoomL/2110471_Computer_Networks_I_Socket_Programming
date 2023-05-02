@@ -66,7 +66,7 @@ export default function LoginPage() {
                             style={{width:"200px",height:"25px",color:getTheme().text,background:getTheme().secondary}}
                         />
                         <Button style={{height:"30px"}} variant="contained" onClick={handleNext}>Join</Button>
-                        {errorName?<label>Please Enter Youe Name!</label>:<Fragment/>}
+                        {errorName?<label>Name required</label>:<Fragment/>}
                     </form>
                 </div>
             </div>

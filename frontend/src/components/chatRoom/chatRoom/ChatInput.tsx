@@ -58,7 +58,7 @@ const Button = styled("button")`
 `;
 
 export default function ChatInput () {
-    const { username, avatarIndex, room } = useUser();
+    const { username, profileIndex, room } = useUser();
     const [showStickerSelector, setShowStickerSelector] = useState(false);
     const { sendMessage } = useSocket();
 
@@ -68,7 +68,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                avatar: avatarIndex
+                profile: profileIndex
             },
             message: msg,
             isSticker: false,
@@ -85,7 +85,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                avatar: avatarIndex
+                profile: profileIndex
             },
             isSticker: true,
             sticker: sticker,

@@ -22,6 +22,7 @@ export default function LoginPage() {
             return;
         }
         setErrorName(false)
+        console.log(username,userProfilePic)
         sessionStorage.setItem('username', username)
         sessionStorage.setItem('profileIndex', String(userProfilePic))
         navigate("/chat");

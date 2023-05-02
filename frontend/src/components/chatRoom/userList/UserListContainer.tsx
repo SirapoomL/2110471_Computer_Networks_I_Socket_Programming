@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import { avatars_url } from "../../../data/Avatar";
 import { useSocket } from "../../SocketProvider"
 import { UserInterface } from "../../../interfaces/UserInterface";
 import { useUser } from "../../UserProvider";
@@ -48,7 +47,7 @@ export function UserListContainer() {
         {users?.map((user, idx) => (
           <ListItem key={idx} button onClick={() => handleClick(user)} disablePadding sx={{ borderBottom: "3px solid #ddd", borderRadius: '10px', '&:hover': { backgroundColor: '#E5E7EB' } }}>
             <ListItemAvatar sx={{paddingTop: 2, paddingBottom: 1}}>
-              <Avatar alt="avatar" src={avatars_url[user.avatar ?? 0]} sx={{ width: 40, height: 40 }} />
+              <Avatar alt="profile" src={"/profile"+user.profile} sx={{ width: 40, height: 40 }} />
             </ListItemAvatar>
             <ListItemText primary={user.name} primaryTypographyProps={{ sx: { textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
           </ListItem>

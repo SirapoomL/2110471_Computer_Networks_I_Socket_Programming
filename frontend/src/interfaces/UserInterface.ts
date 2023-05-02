@@ -1,5 +1,5 @@
 export interface UserInterface {
     id?: string;
     name?: string;
-    avatar?: number;
+    profile?: number;
 }

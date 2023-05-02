@@ -16,7 +16,7 @@ interface Props {
 
 export const SocketProvider = ({ children }: Props) => {
   const navigate = useNavigate();
-  const { username, avatarIndex, room, changeRoom, } = useUser();
+  const { username, profileIndex, room, changeRoom, } = useUser();
   const [ socket, setSocket] = useState<any>(null);
   const [ chatRooms, setChatRooms] = useState<ChatRoomInterface[]>([]);
   const [ messages, setMessages] = useState<MessageInterface[]>([]);
@@ -51,7 +51,7 @@ export const SocketProvider = ({ children }: Props) => {
       setChatRooms(allChatRooms);
       socket.emit("client-set-user",{
         name:username,
-        avatar:avatarIndex,
+        profile:profileIndex,
       })
       if(room && room!==""){
         if(changeRoom) changeRoom("");
@@ -157,7 +157,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName,
       user:{
         name:username,
-        avatar:avatarIndex
+        profile:profileIndex
       }
     })
   }
@@ -168,7 +168,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName,
       user:{
         name:username,
-        avatar:avatarIndex
+        profile:profileIndex
       }
     })
     setIsDmRoom(false);
@@ -188,7 +188,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName:room,
       user:{
         name:username,
-        avatar:avatarIndex
+        profile:profileIndex
       }
     })
     setIsDmRoom(false);

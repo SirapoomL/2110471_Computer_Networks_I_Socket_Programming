@@ -10,6 +10,6 @@ export const DARKCOLOR = {
     primary: '#23272a',
     secondary: '#2c2f33',
     line: '#B8621B',
-    text: '#E3CCAC',
+    text: '#CCCCCC',
     lighter: '#464849',
   }

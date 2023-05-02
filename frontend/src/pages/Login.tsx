@@ -25,6 +25,7 @@ export default function LoginPage() {
         console.log(username,userProfilePic)
         sessionStorage.setItem('username', username)
         sessionStorage.setItem('profileIndex', String(userProfilePic))
+        sessionStorage.setItem('theme', theme)
         navigate("/chat");
     }
     const handleChooseProfile = (profileNumber : number) => {

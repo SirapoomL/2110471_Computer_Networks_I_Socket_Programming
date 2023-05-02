@@ -11,6 +11,7 @@ export const UserProvider = ({ children }: Props) => {
   const [username, setUsername] = useState<string>("");
   const [room, setRoom] = useState<string>("");
   const [profileIndex, setProfileIndex] = useState<number>(0);
+  const [dummy, setDummy] = useState("dummy")
 
   useEffect(()=>{
     if(sessionStorage.getItem('username') !== null){
@@ -23,6 +24,10 @@ export const UserProvider = ({ children }: Props) => {
       setProfileIndex(Number(sessionStorage.getItem('profileIndex')!));
     }
   },[])
+  useEffect(()=>{
+    setDummy("dumb")
+    console.log("dummy")
+  },[profileIndex])
   function changeRoom(newRoom:string) {
     setRoom(newRoom);
     sessionStorage.setItem('room', newRoom)

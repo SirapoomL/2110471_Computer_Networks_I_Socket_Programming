@@ -25,7 +25,7 @@ export const SocketProvider = ({ children }: Props) => {
   const [ notiDm, setNotiDm] = useState<MessageInterface>();
 
   useEffect(()=>{
-    console.log(username)
+    console.log(username,profileIndex)
     if(!username) return;
     const serverUrl = sessionStorage.getItem('serverUrl');
     if(!serverUrl || serverUrl === ''){
@@ -63,13 +63,14 @@ export const SocketProvider = ({ children }: Props) => {
     socket.on("server-new-user",({data}:{data:UserInterface[]})=>{
       console.log("new user join the server!")
       setUsers(data);
+      console.log('new-user',data)
     })
 
     // catch user disconnected
     socket.on("server-user-disconnected",({data}:{data:UserInterface[]})=>{
       console.log("user disconnected!")
       setUsers(data);
-      console.log(data)
+      console.log('disconnect',data)
     })
 
     // catch newly created room 

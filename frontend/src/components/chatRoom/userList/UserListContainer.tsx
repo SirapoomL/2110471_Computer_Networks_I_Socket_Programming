@@ -40,10 +40,10 @@ export function UserListContainer() {
   }
 
   return (
-    <UserListContainerWrapper>
-      <Typography variant="subtitle1" sx={{ fontSize: 14, fontWeight: 600, paddingLeft: 1,color:getTheme().text}}>
-        ONLINE - {users?.length}
-      </Typography>
+    <UserListContainerWrapper style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",background:getTheme().primary}}>
+      <div style={{color:getTheme().text}}>
+        <h2>{users?.length} User(s) Online</h2>
+      </div>
       <List sx={{ paddingTop:1 }}>
         {users?.map((user, idx) => (
           <ListItem key={idx} button onClick={() => handleClick(user)} disablePadding sx={{ borderBottom: "3px solid #ddd", borderRadius: '10px', '&:hover': { backgroundColor: '#E5E7EB' } }}>

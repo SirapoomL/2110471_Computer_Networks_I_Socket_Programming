@@ -1,16 +1,16 @@
 class User {
-    constructor(id, name, avatar){
+    constructor(id, name, profile){
         this.id = id;
         this.name = name;
-        this.avatar = avatar;
+        this.profile = profile;
     }
 }
 
 var users = [];
 
-const newUserConnect = (id, name, avatar) => {
+const newUserConnect = (id, name, profile) => {
     if(users.find((user) => user.id === id) != undefined) return undefined
-    const user = new User(id, name, avatar)
+    const user = new User(id, name, profile)
     users.push(user);
     return user;
 };

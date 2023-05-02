@@ -22,7 +22,7 @@ const initChatRoomEvents = (io, socket) => {
 
   socket.on('client-join-room', ({roomName, user}) => {
     socket.join(roomName);
-    userJoinChatRoom(roomName, new User(socket.id, user.name, user.avatar));
+    userJoinChatRoom(roomName, new User(socket.id, user.name, user.profile));
     socket.roomName = roomName;
     socket.emit('server-room-joined', { roomName });
     socket.broadcast.to(roomName).emit('server-user-joined-room', { data: getChatRooms() });
@@ -49,7 +49,7 @@ const initChatRoomEvents = (io, socket) => {
 
 const initUserEvents = (io, socket) => {
   socket.on('client-set-user', (user) => {
-    newUserConnect(socket.id, user.name, user.avatar);
+    newUserConnect(socket.id, user.name, user.profile);
     io.emit('server-new-user', { data: getAllUsers() });
   })
 }

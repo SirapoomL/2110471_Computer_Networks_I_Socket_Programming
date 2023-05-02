@@ -1,6 +1,6 @@
 export interface AuthorInterface {
     name?: string;
-    avatar?: number;
+    profile?: number;
 }
 
 export interface MessageInterface {

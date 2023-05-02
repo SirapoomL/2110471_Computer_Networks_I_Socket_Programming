@@ -37,6 +37,7 @@ export function UserListContainer() {
       if(theme==="lighttheme")return LIGHTCOLOR
       return DARKCOLOR
   }
+  console.log(users)
 
   return (
     <UserListContainerWrapper style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",background:getTheme().primary}}>
@@ -47,7 +48,7 @@ export function UserListContainer() {
         {users?.map((user, idx) => (
           <ListItem key={idx} button onClick={() => handleClick(user)} disablePadding sx={{width:"100%",marginTop:"1px", '&:hover': {background:getTheme().lighter} }}>
             <ListItemAvatar sx={{marginLeft:"20%",marginRight:"5%",marginBottom:"10px",paddingTop:1.5}}>
-              <Avatar alt="profile" src={"/profile"+user.profile} sx={{ width: 40, height: 40 }} />
+              <Avatar alt="profile" src={"/profile"+(String(user.profile) || "1")+".png"} sx={{ width: 40, height: 40 }} />
             </ListItemAvatar>
             <ListItemText primary={user.name} primaryTypographyProps={{ sx: { paddingRight:"3%",color:getTheme().text, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
           </ListItem>

@@ -1,6 +1,5 @@
 import { MessageInterface } from "../../../interfaces/MessageInterface";
 import Markdown from "./MarkdownedText";
-import { stickers_url } from "../../../data/Sticker";
 
 export function ChatNoti({message, show}: {message: MessageInterface, show:boolean}) {
     return (
@@ -8,10 +7,10 @@ export function ChatNoti({message, show}: {message: MessageInterface, show:boole
             <div className="flex flex-col justify-center h-full p-6">
                 <div className="text-md font-bold">{`${message.author?.name}:`}</div>
                 <div className="line-clamp-1 text-gray-800 text-sm">
-                    {message.isSticker 
+                    {/* {message.isSticker 
                     ? <img src={stickers_url[message.sticker ?? 0]} alt="sticker" className="w-[75px] h-[75px]" />
                     : <Markdown text={message.isSticker ? 'sent a sticker.' : message.message ?? ""}/>
-                    }
+                    } */}
                 </div>
             </div>
         </div>

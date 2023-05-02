@@ -13,6 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Message from "./Message";
 
+import "./component.css"
+import { LIGHTCOLOR, DARKCOLOR } from "./theme";
+
 export default function ChatPage() {
     const { room } = useUser();
     const { isDmRoom, users, notiDm } = useSocket();
@@ -23,6 +26,17 @@ export default function ChatPage() {
     const [showNoti, setShowNoti] = useState<boolean>(false);
     const [searchRoomInput, setSearchRoomInput] = useState<string>("");
     const [ roomNameInput, setRoomNameInput] = useState<string>(""); 
+
+    const [theme, setTheme] = useState("lighttheme");
+
+    const toggleTheme = () => {
+        setTheme((curr) => (curr === "lighttheme" ? "darktheme" : "lighttheme"));
+    };
+
+    const getTheme = () => {
+        if(theme==="lighttheme")return LIGHTCOLOR
+        return DARKCOLOR
+    }
 
     useEffect(()=>{
       if(notiDm) setShowNoti(true);
@@ -36,11 +50,11 @@ export default function ChatPage() {
     })
     return (
         <UserProvider>
-            <SocketProvider>
+        <SocketProvider>
         <div>
-            <div>
+            <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100vw",height:"100vh",gap:"20px"}}>
                 {/* Select Chat Room */}
-                <div>
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"30vw",height:"100vh",backgroundColor:getTheme().primary}}>
                     <div style={{ display:"flex", flexDirection:"column", height:"100%", maxWidth:"15vw", minWidth:"200px", flex:"1 1 auto", overflowY:"auto", backgroundColor:"#1A202C"}}>
                         <hr className="w-2/4 mx-auto border-slate-500"/>
                         <div style={{ flexGrow:1, display:"flex", flexDirection:"column", overflow:"auto", width:"100%"}}>
@@ -66,7 +80,7 @@ export default function ChatPage() {
                     </div>
                 </div>
                 {/* Chat Zone */}
-                <div>
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"50vw",height:"100vh",backgroundColor:getTheme().secondary}}>
                     <div id="chat-messages-container" style={{
                         minWidth:"20rem", flex:"1 1 auto", overflowY:"auto",
                         // background: "linear-gradient(90deg, #2E3440, #4C566A)"
@@ -83,6 +97,9 @@ export default function ChatPage() {
                     <ChatInput/>
                 </div>
                 {/* List of People */}
+                <div style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",width:"20vw",height:"100vh",backgroundColor:getTheme().primary}}>
+
+                </div>
                     <UserListContainer/>
                 <div>
                 </div>

@@ -18,11 +18,8 @@ import { LIGHTCOLOR, DARKCOLOR } from "./theme";
 
 export default function ChatPage() {
     const { room } = useUser();
-    const { isDmRoom, users, notiDm } = useSocket();
-    const { joinRoom } = useSocket();
-    const { chatRooms } = useSocket(); 
-    const { createRoom } = useSocket();
-    const { messages } = useSocket();
+    const { isDmRoom, users, notiDm, createRoom, chatRooms, joinRoom, messages } = useSocket();
+    console.log(useSocket())
     const [showNoti, setShowNoti] = useState<boolean>(false);
     const [searchRoomInput, setSearchRoomInput] = useState<string>("");
     const [ roomNameInput, setRoomNameInput] = useState<string>(""); 
@@ -62,7 +59,7 @@ export default function ChatPage() {
                     <div style={{display:"flex",flexDirection:"row",justifyContent:"flex-start",alignItems:"center",width:"90%",height:"50px"}}>
                         <input type="text" id="new-room-name" value={roomNameInput} onChange={e=>{setRoomNameInput(e.target.value)}} placeholder="Add new room . . ." style={{ color:getTheme().text,background:getTheme().secondary,width:"70%",height:"35px",flex:"1 1 auto", padding:"0.4rem 1rem"}}/>
                         <button style={{height:"50px",color:getTheme().secondary,background:getTheme().text}} onClick={()=>{
-                                if(roomNameInput==="")return;if(!createRoom)return;createRoom(roomNameInput);setRoomNameInput("");}}>
+                                if(roomNameInput==="")return;if(!createRoom){console.log('createroom not defined');return;}createRoom(roomNameInput);setRoomNameInput("");}}>
                                     Add
                             {/* <FontAwesomeIcon icon={faPlus} size="xl" style={{flex:"0 1 auto"}} /> */}
                         </button>

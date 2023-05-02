@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { Button, Modal, Box, Grid, IconButton } from "@mui/material";
 import { useUser } from "../UserProvider"
 import { useNavigate } from "react-router-dom";
@@ -89,7 +89,7 @@ export function Login() {
   const [username, setUsername ] = useState("");
   const [userProfilePic, setUserProfilePic ] = useState<number>(0);
   const [errorName, setErrorName] = useState(false);
-  const [theme, setTheme] = useState("lighttheme");
+  const [theme, setTheme] = useState("darktheme");
   const navigate = useNavigate();
   const handleNext = () => {
       if(username===""){
@@ -100,15 +100,18 @@ export function Login() {
       console.log(username,userProfilePic)
       sessionStorage.setItem('username', username)
       sessionStorage.setItem('avatarIndex', String(userProfilePic))
-      sessionStorage.setItem('theme', theme)
       navigate("/chat");
   }
   const handleChooseProfile = (profileNumber : number) => {
       setUserProfilePic(profileNumber);
   }
   const toggleTheme = () => {
-    setTheme((curr) => (curr === "lighttheme" ? "darktheme" : "lighttheme"));
+    sessionStorage.setItem('theme', theme.toString()  === "lighttheme" ? "darktheme" : "lighttheme")
+    setTheme(theme.toString()  === "lighttheme" ? "darktheme" : "lighttheme");
   };
+  useEffect(()=>{
+    sessionStorage.setItem('theme', "darktheme")
+  },[])
   const getTheme = () => {
       if(theme==="lighttheme")return LIGHTCOLOR
       return DARKCOLOR

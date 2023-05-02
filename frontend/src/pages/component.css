@@ -15,6 +15,14 @@
     border-radius: 50%;
 }
 
+.login-form {
+    height: 25px;
+    width: 300px;
+}
+
+.login-form:focus {
+    border-width: 5px;
+}
 
 .profile {
     height: 50px;

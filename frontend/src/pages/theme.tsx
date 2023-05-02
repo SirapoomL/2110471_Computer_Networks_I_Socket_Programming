@@ -1,13 +1,13 @@
 export const LIGHTCOLOR = {
     primary: '#fff2CC',
-    secondary: '#F3DEBA',
+    secondary: '#ffffff',
     line: '#675D50',
-    text: '#002B5B'
+    text: '#002B5B',
   }
   
 export const DARKCOLOR = {
-    primary: '#000000',
-    secondary: '#262A56',
+    primary: '#23272a',
+    secondary: '#2c2f33',
     line: '#B8621B',
-    text: '#E3CCAC'
+    text: '#E3CCAC',
   }

@@ -5,15 +5,15 @@ import ReactSwitch from "react-switch";
 import "./component.css"
 import { LIGHTCOLOR, DARKCOLOR } from "./theme";
 import { useNavigate } from "react-router-dom";
-import { UserProvider } from "../components/UserProvider";
+import { UserProvider, useUser } from "../components/UserProvider";
 
 export default function LoginPage() {
     useEffect(() => {
-        let serverUrl = sessionStorage.getItem('serverUrl');
         sessionStorage.setItem('serverUrl', 'http://localhost:6789');
     })
+    const { changeUsername, changeAvatarIndex} = useUser();
     const [username, setUsername ] = useState("");
-    const [userProfilePic, setUserProfilePic ] = useState<Number>(1);
+    const [userProfilePic, setUserProfilePic ] = useState<number>(1);
     const [errorName, setErrorName] = useState(false);
     const [theme, setTheme] = useState("lighttheme");
     const navigate = useNavigate();
@@ -23,6 +23,9 @@ export default function LoginPage() {
             return;
         }
         setErrorName(false)
+        if(!changeUsername || !changeAvatarIndex){console.log("no fn");return;}
+        changeUsername(username)
+        changeAvatarIndex(userProfilePic)
         navigate("/chat");
     }
     const handleChooseProfile = (profileNumber : number) => {

@@ -1,77 +1,50 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const express = require("express");
+const http = require("http");
 const cors = require("cors");
+const socketio = require("socket.io");
 const logger = require("morgan");
-const { Server } = require("socket.io");
-const { createServer } = require("http");
 const moment = require("moment");
-const { date_time_format } = require("./utils/Utils");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const { newUserConnect, getUser, userDisconnect, getAllUsers } = require('./db/user');
 const { initChatRoomEvents, initUserEvents } = require("./mysocketio");
 const { userLeaveChatRoom, getChatRooms } = require("./db/chatroom");
 
-dotenv.config();
-
 const app = express();
-const server = createServer(app);
-const io = new Server(server, { /* options */ });
+const server = http.createServer(app);
+const io = socketio(server, { /* options */ });
 
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger("dev"));
 app.use(cors());
 
-// Error handler
-/**
- * errorHandler
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
- */
-const errorHandler = (err, req, res, next) => {
-    const statusCode = err?.code || err?.status || 500;
-  
-    return res.status(statusCode).json({
-      code: statusCode,
-      message: err?.message || "Error",
-    });
-};
-app.use(errorHandler);
 app.use('/', (req, res, next) => {
     res.send("Hello World");
 })
 
 io.on('connection', (socket) => {
-    console.log(`[${moment().format(date_time_format[0])}] client connected : ${socket.id}`)
+    console.log(`client connected : ${socket.id}`)
 
-    //TODO: Init Event Listeners
     initChatRoomEvents(io, socket);
     initUserEvents(io, socket);
     
-    // use log middleware
     if(true){
         socket.use(([event, ...args], next) => {
-        console.log(`[${moment().format(date_time_format[0])}] ${event} : ${socket.id}`)
+        console.log(`${event} : ${socket.id}`)
         next();
         });
-    }        
-
-    socket.on('ping',() => {
-        socket.emit('pong', {
-            message : "pong!"
-        })
-    })
+    }
 
     socket.on('disconnect', ()=> {
         userDisconnect(socket.id);
         let room_id = socket.hasOwnProperty('roomId') ?  socket.roomId : 'unknown'
         userLeaveChatRoom(socket.roomName, socket.id)
-        console.log(`[${moment().format(date_time_format[0])}] client disconnected : ${socket.id} from room ${room_id}`)
+        console.log(`client disconnected : ${socket.id} from room ${room_id}`)
         io.emit('server-user-disconnected', { data: getAllUsers() })
     })
 
-    // event listeners have been initialized and ready to go
     socket.emit('ready', {
         chatRooms : getChatRooms(),
         users: getAllUsers(),
@@ -80,11 +53,8 @@ io.on('connection', (socket) => {
 })
 
 const PORT = process.env.PORT || 6789;
-server.listen(PORT, ()=> {
-    const PORT = process.env.PORT || 6789;
-    console.log(`server running on port ${PORT}...`)
-    console.log(moment().format(date_time_format[0]))
-})
+
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 exports.app = app;
 exports.io = io;

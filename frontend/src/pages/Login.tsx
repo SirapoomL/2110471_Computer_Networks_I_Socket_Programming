@@ -5,8 +5,13 @@ import ReactSwitch from "react-switch";
 import "./component.css"
 import { LIGHTCOLOR, DARKCOLOR } from "./theme";
 import { useNavigate } from "react-router-dom";
+import { UserProvider } from "../components/UserProvider";
 
 export default function LoginPage() {
+    useEffect(() => {
+        let serverUrl = sessionStorage.getItem('serverUrl');
+        sessionStorage.setItem('serverUrl', 'http://localhost:6789');
+    })
     const [username, setUsername ] = useState("");
     const [userProfilePic, setUserProfilePic ] = useState<Number>(1);
     const [errorName, setErrorName] = useState(false);
@@ -33,6 +38,7 @@ export default function LoginPage() {
     getTheme().primary
     return (
         <>
+        <UserProvider>
             <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",width:"100vw",height:"100vh",gap:"20px",backgroundColor:getTheme().primary}}>
                 <div style={{display:"flex",flexDirection:"row",justifyContent:"center",alignItems:"center",width:"100vw",gap:"20px",color:getTheme().text}}>
                     <h3>Dark Theme</h3>
@@ -64,6 +70,7 @@ export default function LoginPage() {
                     </form>
                 </div>
             </div>
+            </UserProvider>
         </>
     )
 }

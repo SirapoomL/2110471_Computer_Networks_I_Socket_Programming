@@ -8,10 +8,10 @@ import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
 
 let theme = sessionStorage.getItem('theme');
 const getTheme = () => {
-  let theme = sessionStorage.getItem('theme');
-  console.log(theme)
-      if(theme?.toString()==="lighttheme")return LIGHTCOLOR
-      return DARKCOLOR
+  theme = sessionStorage.getItem('theme');
+  if(theme)sessionStorage.setItem('theme',theme)
+  if(theme?.toString()==="lighttheme")return LIGHTCOLOR
+  return DARKCOLOR
 }
 
 export function UserListContainer() {

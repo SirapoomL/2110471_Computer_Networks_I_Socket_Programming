@@ -2,8 +2,9 @@ import { ChatRoomInterface } from "../../../interfaces/ChatRoomInterface";
 import { useSocket } from "../../SocketProvider";
 import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
 
-const theme = sessionStorage.getItem('theme');
+let theme = sessionStorage.getItem('theme');
 const getTheme = () => {
+  theme = sessionStorage.getItem('theme');
       if(theme==="lighttheme")return LIGHTCOLOR
       return DARKCOLOR
 }

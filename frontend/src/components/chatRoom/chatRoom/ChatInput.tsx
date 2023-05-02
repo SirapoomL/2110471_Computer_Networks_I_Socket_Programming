@@ -6,15 +6,24 @@ import { useUser } from "../../UserProvider";
 import { useSocket } from "../../SocketProvider"
 import { MessageInterface } from "../../../interfaces/MessageInterface";
 import styled from "@emotion/styled";
+import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
+
+let theme = sessionStorage.getItem('theme');
+const getTheme = () => {
+    theme = sessionStorage.getItem('theme');
+      if(theme==="lighttheme")return LIGHTCOLOR
+      return DARKCOLOR
+}
 
 // const backgroundColor = "#f9fafb";
-const backgroundColor = "#1A202C";
+const backgroundColor = getTheme().secondary;
+const backgroundColor1 = getTheme().lighter;
 
 // border-top: 1px solid #d1d5db;
 const Container = styled("div")`
     display: flex;
     flex-direction: column;
-    background-color: ${backgroundColor};
+    background-color: ${backgroundColor1};
 `;
 
 const InputContainer = styled("div")`
@@ -30,12 +39,11 @@ const Input = styled("textarea")`
     margin-right: 1rem;
     padding: 0.5rem;
     border-radius: 999px;
-    background-color: #ffffff;
+    background-color: ${backgroundColor};
     border: none;
     outline: none;
     resize: none;
     font-size: 16px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
 `;
 
 const Button = styled("button")`
@@ -45,16 +53,6 @@ const Button = styled("button")`
     border-radius: 999px;
     outline: none;
     cursor: pointer;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-
-    &:active {
-        transform: scale(0.95);
-    }
 `;
 
 export default function ChatInput () {

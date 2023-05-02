@@ -24,16 +24,16 @@ export function UserListContainer() {
   }
   return (
     <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",backgroundColor:getTheme().primary}}>
-      <div style={{color:getTheme().text,marginTop:"2rem"}}>
-        <h2>{users?.length} User(s) Online</h2>
+      <div style={{color:getTheme().text,marginTop:"2rem",marginBottom:"10px"}}>
+        <h1 style={{fontSize:"1.4rem",fontWeight:"bold"}}>{users?.length} User(s) Online</h1>
       </div>
       <List sx={{width:"100%"}} >
         {users?.map((user, idx) => (
           <ListItem key={idx} button onClick={() => handleClick(user)} disablePadding sx={{width:"100%",marginTop:"1px", '&:hover': {background:getTheme().lighter} }}>
-            <ListItemAvatar sx={{marginLeft:"20%",marginRight:"5%",marginBottom:"10px",paddingTop:1.5}}>
+            <ListItemAvatar sx={{marginLeft:"20%",marginRight:"3%",marginBottom:"10px",paddingTop:1.5}}>
               <Avatar alt="profile" src={avatars_url[user.avatar ?? 0]} sx={{ width: 40, height: 40 }} />
             </ListItemAvatar>
-            <ListItemText primary={user.name} primaryTypographyProps={{ sx: { paddingRight:"3%",color:getTheme().text, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
+            <ListItemText primary={user.name} primaryTypographyProps={{ sx: { paddingRight:"5%",color:getTheme().text, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
           </ListItem>
         ))}
       </List>

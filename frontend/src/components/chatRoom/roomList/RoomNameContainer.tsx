@@ -26,15 +26,18 @@ export function RoomNameContainer({chatRoom}:{chatRoom:ChatRoomInterface}) {
           margin:"0.2rem 0.5rem", 
           alignItems:"center", 
           textAlign:"left", 
-          fontSize:"1.2rem", 
+          fontSize:"1rem", 
           fontWeight:"bold", 
           color: getTheme().text,
           backgroundColor: getTheme().lighter,
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap"
         }
       }
       onClick={onClick}
       >
-      {chatRoom.roomName}
+      &nbsp;&nbsp;{chatRoom.roomName}
     </button>
   </>
 }

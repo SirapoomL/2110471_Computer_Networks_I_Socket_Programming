@@ -1,6 +1,6 @@
 export const stickers_url = [
-    "/pepega.png",
-    "/pepesad.png",
-    "/pepepog.png",
-    "/prayge.png",
+    "/sticker1.png",
+    "/sticker2.png",
+    "/sticker3.png",
+    "/sticker4.png",
 ]

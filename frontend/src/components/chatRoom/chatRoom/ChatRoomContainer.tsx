@@ -11,8 +11,9 @@ export function ChatRoomContainer() {
 
   let theme = sessionStorage.getItem('theme');
   const getTheme = () => {
-        if(theme==="lighttheme")return LIGHTCOLOR
-        return DARKCOLOR
+    let theme = sessionStorage.getItem('theme');
+    if(theme==="lighttheme")return LIGHTCOLOR
+    return DARKCOLOR
   }
 
   useEffect(()=>{
@@ -24,14 +25,14 @@ export function ChatRoomContainer() {
   return <>
     <div id="chat-messages-container" style={{
       minWidth:"20rem", flex:"1 1 auto", overflowY:"auto",
-      backgroundColor: getTheme().secondary,
+      backgroundColor: getTheme().lighter,
     }}>
       {
         room !== "" 
         ? messages?.map((msg, idx) => (
           <Message key={idx} msg={msg}/>
         ))
-        : <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100%", background:getTheme().secondary,color:getTheme().text}}>
+        : <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100%", background:getTheme().lighter,color:getTheme().text}}>
             <h1 style={{fontSize:"3rem"}}>Join a room to chat!</h1>
           </div>
       }

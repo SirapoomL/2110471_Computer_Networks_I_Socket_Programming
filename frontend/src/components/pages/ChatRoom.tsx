@@ -15,14 +15,11 @@ export function ChatRoom() {
   const { isDmRoom, users, notiDm } = useSocket();
   const [showNoti, setShowNoti] = useState<boolean>(false);
 
-  // theme
-  const [theme, setTheme] = useState("lighttheme");
-  const toggleTheme = () => {
-    setTheme((curr) => (curr === "lighttheme" ? "darktheme" : "lighttheme"));
-  };
+  let theme = sessionStorage.getItem('theme');
   const getTheme = () => {
-    if(theme==="lighttheme")return LIGHTCOLOR
-    return DARKCOLOR
+      theme = sessionStorage.getItem('theme');
+        if(theme==="lighttheme")return LIGHTCOLOR
+        return DARKCOLOR
   }
 
   useEffect(()=>{
@@ -40,24 +37,30 @@ export function ChatRoom() {
     { /* OLD CODE */ }
     <div style={{backgroundColor:getTheme().primary,display:"flex", flexDirection:"column", width:"100vw",height:"100vh", position:"relative"}}>
       {/* <TopBar/> */}
-      <div style={{display:"flex", flexDirection:"row", height:"100vh",backgroundColor:getTheme().primary}}>
+      <div style={{display:"flex", flexDirection:"row", height:"100vh",backgroundColor:getTheme().lighter}}>
         <RoomListContainer/>
-        <div style={{display:"flex", flexDirection:"column", flexGrow:1,backgroundColor:getTheme().primary}}>
-          <div style={{display:"flex", alignItems:"center", fontSize:"20px", color:"white", padding:"8px 16px", backgroundColor:"#1E2532"}}>
+        <div style={{display:"flex", flexDirection:"column", flexGrow:1,backgroundColor:getTheme().lighter}}>
+        <div style={{marginTop:"15px",marginBottom:"15px",display:"flex", alignItems:"center", fontSize:"25px", fontWeight:"bold", color:getTheme().text, padding:"8px 16px", backgroundColor:getTheme().lighter}}>
             {room !== "" && (isDmRoom 
             ? <label style={{paddingLeft:"6px"}}>{(users?.find((u) => u.id === room))?.name ?? 'disconnected'}</label>
-            : <label style={{paddingLeft:"6px"}}>ROOM - {room}</label>)}
+            : <label style={{paddingLeft:"6px"}}>{room}</label>)}
           </div>
-          <hr style={{border:"1px solid #1A202C"}}/>
           <ChatRoomContainer/>
           <ChatInput/>
         </div>
-        <div style={{
+
+
+        <div style={{display: "flex", flexDirection: "column", height: "100vh",width:"20%",maxWidth:"20%"}}>
+          <UserListContainer/>
+        </div>
+
+
+        {/* <div style={{
           display: "flex", flexDirection: "column", height: "100vh", backgroundColor: "#1A202C", 
           borderLeft: "10px solid #1A202C", borderRight: "10px solid #1A202C"
         }}>
           <UserListContainer/>
-        </div>
+        </div> */}
       </div>
     </div>
     {notiDm && <ChatNoti message={notiDm} show={showNoti}/>}

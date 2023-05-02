@@ -26,7 +26,7 @@ export default function Message({ msg } : Props) {
             </div>
             <img src={avatars_url[msg.author?.avatar ?? 0]} alt="avatar" style={{width:"50px",height:"50px",borderRadius:"50%"}}/>
 
-            <div style={{marginLeft:"15px",color:getTheme().primary,background:getTheme().text,borderRadius:"13px",padding:"5px 2%"}}>
+            <div style={{marginLeft:"15px",color:getTheme().text,background:getTheme().primary,borderRadius:"13px",padding:"5px 2%"}}>
                 { msg.isSticker ?
                 <div>
                     <img src={stickers_url[msg.sticker ?? 0]} alt="sticker" style={{width:"50px",height:"50px"}}/>

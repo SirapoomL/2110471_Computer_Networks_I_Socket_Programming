@@ -96,14 +96,15 @@ export default function ChatInput () {
 
 
     return (
-        <Container>
+        <Container style={{paddingBottom:"20px"}}>
             <StickerSelector onSelect={handleSendSticker} />
             <InputContainer>
                 <Input
+                    style={{border:"5px",borderColor:getTheme().primary,color:getTheme().text}}
                     id="input-message"
                     rows={1}
                     // value={message}
-                    placeholder="Type a message"
+                    placeholder="   Type a message"
                     // onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
@@ -112,11 +113,8 @@ export default function ChatInput () {
                         }
                     }}
                 />
-                <Button onClick={handleSendMsg}>
-                    <FontAwesomeIcon icon={faPaperPlane} className="text-gray-400" />
-                </Button>
-                <Button onClick={() => setShowStickerSelector(!showStickerSelector)}>
-                    <FontAwesomeIcon icon={faSmile} className="text-gray-400" />
+                <Button onClick={handleSendMsg} style={{color:getTheme().secondary,background:getTheme().text,paddingInline:"5px"}}>
+                    Send
                 </Button>
             </InputContainer>
         </Container>

@@ -79,9 +79,9 @@ io.on('connection', (socket) => {
     })
 })
 
-const PORT = process.env.PORT || 2001;
+const PORT = process.env.PORT || 6789;
 server.listen(PORT, ()=> {
-    const PORT = process.env.PORT || 2001;
+    const PORT = process.env.PORT || 6789;
     console.log(`server running on port ${PORT}...`)
     console.log(moment().format(date_time_format[0]))
 })

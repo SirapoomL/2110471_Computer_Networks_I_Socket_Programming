@@ -62,8 +62,6 @@ export const SocketProvider = ({ children }: Props) => {
     socket.on("server-new-user",({data}:{data:UserInterface[]})=>{
       console.log("new user join the server!")
       setUsers(data);
-      //console.log(data)
-      //console.log(users)
     })
 
     // catch user disconnected
@@ -117,7 +115,7 @@ export const SocketProvider = ({ children }: Props) => {
       setMessages((messages)=>[...messages, message]);
     })
 
-    socket.on("server-echoe-message", (message:MessageInterface)=>{
+    socket.on("server-echo-message", (message:MessageInterface)=>{
       console.log(`new message!`);
       setMessages((messages)=>[...messages, message]);
     })
@@ -128,8 +126,8 @@ export const SocketProvider = ({ children }: Props) => {
       else if(socket.id!=senderId) setNotiDm(message);
     })
 
-    socket.on("server-echoe-dm", (message:MessageInterface)=>{
-      console.log(`echoe dm!`);
+    socket.on("server-echo-dm", (message:MessageInterface)=>{
+      console.log(`echo dm!`);
       setMessages((messages)=>[...messages, message]);
     })
 
@@ -145,9 +143,9 @@ export const SocketProvider = ({ children }: Props) => {
       socket.off("server-user-left-room");
       socket.off("server-room-left");
       socket.off("server-send-message");
-      socket.off("server-echoe-message");
+      socket.off("server-echo-message");
       socket.off("server-send-dm");
-      socket.off("server-echoe-dm");
+      socket.off("server-echo-dm");
     }
   }, [socket,room])
 

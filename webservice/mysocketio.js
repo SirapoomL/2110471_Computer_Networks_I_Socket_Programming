@@ -6,10 +6,10 @@ const initChatRoomEvents = (io, socket) => {
     console.log(message, roomName);
     message.timestamp = Date.now();
     if(roomName) {
-      message.echoeBack = false;
+      message.echoBack = false;
       socket.broadcast.to(roomName).emit('server-send-message', message);
-      message.echoeBack = true;
-      socket.emit('server-echoe-message', message);
+      message.echoBack = true;
+      socket.emit('server-echo-message', message);
     }
     //else io.emit('server-send-message', message);
   })
@@ -40,10 +40,10 @@ const initChatRoomEvents = (io, socket) => {
     console.log(message, receiverId)
     console.log(getAllUsers())
     message.timestamp = Date.now();
-    message.echoeBack = false;
+    message.echoBack = false;
     io.to(receiverId).emit('server-send-dm', {message, senderId: socket.id});
-    message.echoeBack = true;
-    socket.emit('server-echoe-dm', message);
+    message.echoBack = true;
+    socket.emit('server-echo-dm', message);
   })
 }
 

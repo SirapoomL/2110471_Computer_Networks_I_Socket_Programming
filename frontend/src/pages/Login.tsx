@@ -11,7 +11,6 @@ export default function LoginPage() {
     useEffect(() => {
         sessionStorage.setItem('serverUrl', 'http://localhost:6789');
     })
-    const { changeUsername, changeAvatarIndex} = useUser();
     const [username, setUsername ] = useState("");
     const [userProfilePic, setUserProfilePic ] = useState<number>(1);
     const [errorName, setErrorName] = useState(false);
@@ -23,9 +22,8 @@ export default function LoginPage() {
             return;
         }
         setErrorName(false)
-        if(!changeUsername || !changeAvatarIndex){console.log("no fn");return;}
-        changeUsername(username)
-        changeAvatarIndex(userProfilePic)
+        sessionStorage.setItem('username', username)
+        sessionStorage.setItem('profileIndex', String(userProfilePic))
         navigate("/chat");
     }
     const handleChooseProfile = (profileNumber : number) => {

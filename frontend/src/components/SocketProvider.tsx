@@ -58,6 +58,7 @@ export const SocketProvider = ({ children }: Props) => {
         //joinRoom(room);
       }
     });
+    console.log("poon debug : server ready")
 
     // catch new user join server
     socket.on("server-new-user",({data}:{data:UserInterface[]})=>{

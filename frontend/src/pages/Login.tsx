@@ -9,7 +9,7 @@ import { UserProvider, useUser } from "../components/UserProvider";
 
 export default function LoginPage() {
     useEffect(() => {
-        sessionStorage.setItem('serverUrl', 'http://localhost:6789');
+        sessionStorage.setItem('serverUrl', 'http://localhost:6788');
     })
     const [username, setUsername ] = useState("");
     const [userProfilePic, setUserProfilePic ] = useState<number>(1);

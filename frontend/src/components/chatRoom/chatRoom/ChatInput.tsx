@@ -58,7 +58,7 @@ const Button = styled("button")`
 `;
 
 export default function ChatInput () {
-    const { username, profileIndex, room } = useUser();
+    const { username, avatarIndex, room } = useUser();
     const [showStickerSelector, setShowStickerSelector] = useState(false);
     const { sendMessage } = useSocket();
 
@@ -68,7 +68,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                profile: profileIndex
+                avatar: avatarIndex
             },
             message: msg,
             isSticker: false,
@@ -85,7 +85,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                profile: profileIndex
+                avatar: avatarIndex
             },
             isSticker: true,
             sticker: sticker,
@@ -98,15 +98,14 @@ export default function ChatInput () {
 
 
     return (
-        <Container style={{width:"95%",marginBottom:"15px"}}>
+        <Container>
             <StickerSelector onSelect={handleSendSticker} show={showStickerSelector} />
             <InputContainer>
                 <Input
-                    style={{color:"black",paddingInline:"3%"}}
                     id="input-message"
                     rows={1}
                     // value={message}
-                    placeholder="Send a message"
+                    placeholder="Type a message"
                     // onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {

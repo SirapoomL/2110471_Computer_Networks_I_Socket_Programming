@@ -6,10 +6,10 @@ const initChatRoomEvents = (io, socket) => {
     console.log(message, roomName);
     message.timestamp = Date.now();
     if(roomName) {
-      message.echoBack = false;
+      message.echoeBack = false;
       socket.broadcast.to(roomName).emit('server-send-message', message);
-      message.echoBack = true;
-      socket.emit('server-echo-message', message);
+      message.echoeBack = true;
+      socket.emit('server-echoe-message', message);
     }
     //else io.emit('server-send-message', message);
   })
@@ -22,7 +22,7 @@ const initChatRoomEvents = (io, socket) => {
 
   socket.on('client-join-room', ({roomName, user}) => {
     socket.join(roomName);
-    userJoinChatRoom(roomName, new User(socket.id, user.name, user.profile));
+    userJoinChatRoom(roomName, new User(socket.id, user.name, user.avatar));
     socket.roomName = roomName;
     socket.emit('server-room-joined', { roomName });
     socket.broadcast.to(roomName).emit('server-user-joined-room', { data: getChatRooms() });
@@ -40,16 +40,16 @@ const initChatRoomEvents = (io, socket) => {
     console.log(message, receiverId)
     console.log(getAllUsers())
     message.timestamp = Date.now();
-    message.echoBack = false;
+    message.echoeBack = false;
     io.to(receiverId).emit('server-send-dm', {message, senderId: socket.id});
-    message.echoBack = true;
-    socket.emit('server-echo-dm', message);
+    message.echoeBack = true;
+    socket.emit('server-echoe-dm', message);
   })
 }
 
 const initUserEvents = (io, socket) => {
   socket.on('client-set-user', (user) => {
-    newUserConnect(socket.id, user.name, user.profile);
+    newUserConnect(socket.id, user.name, user.avatar);
     io.emit('server-new-user', { data: getAllUsers() });
   })
 }

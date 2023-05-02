@@ -16,7 +16,7 @@ interface Props {
 
 export const SocketProvider = ({ children }: Props) => {
   const navigate = useNavigate();
-  const { username, profileIndex, room, changeRoom, } = useUser();
+  const { username, avatarIndex, room, changeRoom, } = useUser();
   const [ socket, setSocket] = useState<any>(null);
   const [ chatRooms, setChatRooms] = useState<ChatRoomInterface[]>([]);
   const [ messages, setMessages] = useState<MessageInterface[]>([]);
@@ -25,7 +25,7 @@ export const SocketProvider = ({ children }: Props) => {
   const [ notiDm, setNotiDm] = useState<MessageInterface>();
 
   useEffect(()=>{
-    console.log(username,profileIndex)
+    console.log(username)
     if(!username) return;
     const serverUrl = sessionStorage.getItem('serverUrl');
     if(!serverUrl || serverUrl === ''){
@@ -34,7 +34,6 @@ export const SocketProvider = ({ children }: Props) => {
       navigate('/');
       return;
     }
-    console.log(serverUrl)
     const s = io(serverUrl, { transports: ["websocket"] });
     s.connect();
     console.log(s);
@@ -51,27 +50,27 @@ export const SocketProvider = ({ children }: Props) => {
       setChatRooms(allChatRooms);
       socket.emit("client-set-user",{
         name:username,
-        profile:profileIndex,
+        avatar:avatarIndex,
       })
       if(room && room!==""){
         if(changeRoom) changeRoom("");
         //joinRoom(room);
       }
     });
-    console.log("poon debug : server ready")
 
     // catch new user join server
     socket.on("server-new-user",({data}:{data:UserInterface[]})=>{
       console.log("new user join the server!")
       setUsers(data);
-      console.log('new-user',data)
+      //console.log(data)
+      //console.log(users)
     })
 
     // catch user disconnected
     socket.on("server-user-disconnected",({data}:{data:UserInterface[]})=>{
       console.log("user disconnected!")
       setUsers(data);
-      console.log('disconnect',data)
+      console.log(data)
     })
 
     // catch newly created room 
@@ -118,7 +117,7 @@ export const SocketProvider = ({ children }: Props) => {
       setMessages((messages)=>[...messages, message]);
     })
 
-    socket.on("server-echo-message", (message:MessageInterface)=>{
+    socket.on("server-echoe-message", (message:MessageInterface)=>{
       console.log(`new message!`);
       setMessages((messages)=>[...messages, message]);
     })
@@ -129,8 +128,8 @@ export const SocketProvider = ({ children }: Props) => {
       else if(socket.id!=senderId) setNotiDm(message);
     })
 
-    socket.on("server-echo-dm", (message:MessageInterface)=>{
-      console.log(`echo dm!`);
+    socket.on("server-echoe-dm", (message:MessageInterface)=>{
+      console.log(`echoe dm!`);
       setMessages((messages)=>[...messages, message]);
     })
 
@@ -146,9 +145,9 @@ export const SocketProvider = ({ children }: Props) => {
       socket.off("server-user-left-room");
       socket.off("server-room-left");
       socket.off("server-send-message");
-      socket.off("server-echo-message");
+      socket.off("server-echoe-message");
       socket.off("server-send-dm");
-      socket.off("server-echo-dm");
+      socket.off("server-echoe-dm");
     }
   }, [socket,room])
 
@@ -159,7 +158,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName,
       user:{
         name:username,
-        profile:profileIndex
+        avatar:avatarIndex
       }
     })
   }
@@ -170,7 +169,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName,
       user:{
         name:username,
-        profile:profileIndex
+        avatar:avatarIndex
       }
     })
     setIsDmRoom(false);
@@ -190,7 +189,7 @@ export const SocketProvider = ({ children }: Props) => {
       roomName:room,
       user:{
         name:username,
-        profile:profileIndex
+        avatar:avatarIndex
       }
     })
     setIsDmRoom(false);

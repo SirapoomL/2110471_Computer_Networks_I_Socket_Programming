@@ -3,6 +3,6 @@ export interface UserContextInterface {
   changeUsername?:  (newName:string)=>void;
   room?: string;
   changeRoom?: (newRoom:string)=>void;
-  profileIndex?: number;
-  changeProfileIndex?: (newRoom:number)=>void;
+  avatarIndex?: number;
+  changeAvatarIndex?: (newRoom:number)=>void;
 }

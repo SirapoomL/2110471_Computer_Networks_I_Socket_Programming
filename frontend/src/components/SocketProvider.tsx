@@ -34,6 +34,8 @@ export const SocketProvider = ({ children }: Props) => {
       navigate('/');
       return;
     }
+    console.log('this is socket provider serverUrl')
+    console.log(serverUrl)
     const s = io(serverUrl, { transports: ["websocket"] });
     s.connect();
     console.log(s);

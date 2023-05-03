@@ -4,7 +4,7 @@ import { Login } from "../components/pages/Login";
 
 export default function LoginPage() {
     useEffect(() => {
-        sessionStorage.setItem('serverUrl', 'http://localhost:6789');
+        sessionStorage.setItem('serverUrl', '172.20.10.10:6789');
     })
     return (
         <>

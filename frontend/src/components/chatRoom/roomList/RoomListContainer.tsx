@@ -2,6 +2,14 @@ import { useState } from "react";
 import { useSocket } from "../../SocketProvider"
 import { CreateRoomContainer } from "./CreateRoomContainer";
 import { RoomNameContainer } from "./RoomNameContainer";
+import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
+
+let theme = sessionStorage.getItem('theme');
+const getTheme = () => {
+  theme = sessionStorage.getItem('theme');
+      if(theme==="lighttheme")return LIGHTCOLOR
+      return DARKCOLOR
+}
 
 export function RoomListContainer() {
   const  [searchRoomInput, setSearchRoomInput ] = useState<string>("");
@@ -12,17 +20,15 @@ export function RoomListContainer() {
   })
 
   return <>
-  <div style={{ display:"flex", flexDirection:"column", height:"100%", maxWidth:"15vw", minWidth:"200px", flex:"1 1 auto", overflowY:"auto", backgroundColor:"#1A202C"}}>
-    <input 
-      type="text" 
-      id="search-room" 
-      value={searchRoomInput} 
-      onChange={e=>{setSearchRoomInput(e.target.value)}} 
-      placeholder="Search room. . ." 
-      style={{ width:"calc(100% - 1rem)", padding:"0.3rem 1rem", margin:"0.5rem", height:"2.5rem", borderRadius:"0.5rem"}}
-    />
-    <hr className="w-2/4 mx-auto border-slate-500"/>
-    <div style={{ flexGrow:1, display:"flex", flexDirection:"column", overflow:"auto", width:"100%"}}>
+  <div style={{display:"flex", flexDirection:"column", justifyContent:"flex-start",alignItems:"center",height:"100%", maxWidth:"25vw", minWidth:"200px", flex:"1 1 auto", overflowY:"auto", backgroundColor:getTheme().primary,paddingInline:"5px"}}>
+    <div style={{color:getTheme().text,marginTop:"2rem",marginBottom:"10px"}}>
+      <h1 style={{fontSize:"1.5rem",fontWeight:"bold"}}>Create room</h1>
+    </div>
+   <CreateRoomContainer/>
+   <div style={{color:getTheme().text,marginTop:"2rem",marginBottom:"10px"}}>
+      <h1 style={{fontSize:"1.5rem",fontWeight:"bold"}}>Available room(s)</h1>
+    </div>
+   <div style={{ flexGrow:1, display:"flex", flexDirection:"column", overflow:"auto", width:"100%"}}>
     {
       filteredChatRooms && filteredChatRooms.map((chatRoom,index)=>{
         return <div key={index}>
@@ -31,7 +37,7 @@ export function RoomListContainer() {
       })
     }
     </div>
-    <CreateRoomContainer/>
+    {/* <CreateRoomContainer/> */}
   </div>
   </>
 }

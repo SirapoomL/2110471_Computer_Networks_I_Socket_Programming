@@ -1,7 +1,7 @@
 class Author {
-    constructor(name, profile) {
+    constructor(name, avatar) {
         this.name = name;
-        this.profile = profile;
+        this.avatar = avatar;
     }
 }
 

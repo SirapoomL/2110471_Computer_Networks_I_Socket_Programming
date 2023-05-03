@@ -3,9 +3,18 @@ import { useSocket } from "../../SocketProvider"
 import { useUser } from "../../UserProvider";
 import { useEffect } from "react";
 
+import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
+
 export function ChatRoomContainer() {
   const { messages } = useSocket();
   const { room } = useUser();
+
+  let theme = sessionStorage.getItem('theme');
+  const getTheme = () => {
+    let theme = sessionStorage.getItem('theme');
+    if(theme==="lighttheme")return LIGHTCOLOR
+    return DARKCOLOR
+  }
 
   useEffect(()=>{
     const isEchoeBack = messages && messages.length > 0 ? messages[messages.length -1].echoeBack : false;
@@ -14,21 +23,19 @@ export function ChatRoomContainer() {
   },[messages])
 
   return <>
-  <div id="chat-messages-container" style={{
-    minWidth:"20rem", flex:"1 1 auto", overflowY:"auto",
-    // background: "linear-gradient(90deg, #2E3440, #4C566A)"
-    backgroundColor: "#2E3440"
-    // backgroundColor: "#f9fafb"
-  }}>
-    {
-      room !== "" 
-      ? messages?.map((msg, idx) => (
-        <Message key={idx} msg={msg}/>
-      ))
-      : <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100%"}}>
-          <label style={{fontSize:"22px", paddingLeft:"6px", fontWeight:"bold", color:"white"}}>Select a room to start chatting</label>
-        </div>
-    }
-  </div>
+    <div id="chat-messages-container" style={{
+      minWidth:"20rem", flex:"1 1 auto", overflowY:"auto",
+      backgroundColor: getTheme().lighter,
+    }}>
+      {
+        room !== "" 
+        ? messages?.map((msg, idx) => (
+          <Message key={idx} msg={msg}/>
+        ))
+        : <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"100%", background:getTheme().lighter,color:getTheme().text}}>
+            <h1 style={{fontSize:"3rem"}}>Join a room to chat!</h1>
+          </div>
+      }
+    </div>
   </>
 }

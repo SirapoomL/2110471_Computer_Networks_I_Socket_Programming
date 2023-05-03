@@ -1,24 +1,18 @@
-import { Fragment, useEffect, useState } from "react";
+import { avatars_url } from "../../../data/Avatar";
 import { useSocket } from "../../SocketProvider"
 import { UserInterface } from "../../../interfaces/UserInterface";
 import { useUser } from "../../UserProvider";
 import { styled } from "@mui/material/styles";
-import { Avatar, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
 
-import "../../../pages/component.css"
-import { LIGHTCOLOR, DARKCOLOR } from "../../../pages/theme";
-
-const UserListContainerWrapper = styled('div')(({ theme }) => ({
-  height: "100%",
-  minWidth: "17vw",
-  maxWidth: "20vw",
-  padding: "14px 9px",
-  backgroundColor: "#F3F4F6",
-  flex: "1 1 auto",
-  overflowY: "auto",
-  borderTopLeftRadius: "20px",
-  borderTopRightRadius: "20px",
-}));
+let theme = sessionStorage.getItem('theme');
+const getTheme = () => {
+  theme = sessionStorage.getItem('theme');
+  if(theme)sessionStorage.setItem('theme',theme)
+  if(theme?.toString()==="lighttheme")return LIGHTCOLOR
+  return DARKCOLOR
+}
 
 export function UserListContainer() {
   const { users, checkDm, socket } = useSocket();
@@ -28,32 +22,21 @@ export function UserListContainer() {
       checkDm(user.id);
     }
   }
-
-  const [theme, setTheme] = useState("lighttheme");
-  const toggleTheme = () => {
-      setTheme((curr) => (curr === "lighttheme" ? "darktheme" : "lighttheme"));
-  };
-  const getTheme = () => {
-      if(theme==="lighttheme")return LIGHTCOLOR
-      return DARKCOLOR
-  }
-  console.log(users)
-
   return (
-    <UserListContainerWrapper style={{display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",background:getTheme().primary}}>
-      <div style={{color:getTheme().text}}>
-        <h2>{users?.length} User(s) Online</h2>
+    <div style={{width:"100%",height:"100%",display:"flex",flexDirection:"column",justifyContent:"flex-start",alignItems:"center",backgroundColor:getTheme().primary}}>
+      <div style={{color:getTheme().text,marginTop:"2rem",marginBottom:"10px"}}>
+        <h1 style={{fontSize:"1.4rem",fontWeight:"bold"}}>{users?.length} User(s) Online</h1>
       </div>
       <List sx={{width:"100%"}} >
         {users?.map((user, idx) => (
           <ListItem key={idx} button onClick={() => handleClick(user)} disablePadding sx={{width:"100%",marginTop:"1px", '&:hover': {background:getTheme().lighter} }}>
-            <ListItemAvatar sx={{marginLeft:"20%",marginRight:"5%",marginBottom:"10px",paddingTop:1.5}}>
-              <Avatar alt="profile" src={"/profile"+(String(user.profile) || "1")+".png"} sx={{ width: 40, height: 40 }} />
+            <ListItemAvatar sx={{marginLeft:"20%",marginRight:"3%",marginBottom:"10px",paddingTop:1.5}}>
+              <Avatar alt="profile" src={avatars_url[user.avatar ?? 0]} sx={{ width: 40, height: 40 }} />
             </ListItemAvatar>
-            <ListItemText primary={user.name} primaryTypographyProps={{ sx: { paddingRight:"3%",color:getTheme().text, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
+            <ListItemText primary={user.name} primaryTypographyProps={{ sx: { paddingRight:"5%",color:getTheme().text, textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" } }} />
           </ListItem>
         ))}
       </List>
-    </UserListContainerWrapper>
+    </div>
   );
 }

@@ -6,15 +6,24 @@ import { useUser } from "../../UserProvider";
 import { useSocket } from "../../SocketProvider"
 import { MessageInterface } from "../../../interfaces/MessageInterface";
 import styled from "@emotion/styled";
+import { LIGHTCOLOR, DARKCOLOR } from "../../../utils/theme";
+
+let theme = sessionStorage.getItem('theme');
+const getTheme = () => {
+    theme = sessionStorage.getItem('theme');
+      if(theme==="lighttheme")return LIGHTCOLOR
+      return DARKCOLOR
+}
 
 // const backgroundColor = "#f9fafb";
-const backgroundColor = "#1A202C";
+const backgroundColor = getTheme().secondary;
+const backgroundColor1 = getTheme().lighter;
 
 // border-top: 1px solid #d1d5db;
 const Container = styled("div")`
     display: flex;
     flex-direction: column;
-    background-color: ${backgroundColor};
+    background-color: ${backgroundColor1};
 `;
 
 const InputContainer = styled("div")`
@@ -30,12 +39,11 @@ const Input = styled("textarea")`
     margin-right: 1rem;
     padding: 0.5rem;
     border-radius: 999px;
-    background-color: #ffffff;
+    background-color: ${backgroundColor};
     border: none;
     outline: none;
     resize: none;
     font-size: 16px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
 `;
 
 const Button = styled("button")`
@@ -45,20 +53,10 @@ const Button = styled("button")`
     border-radius: 999px;
     outline: none;
     cursor: pointer;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-
-    &:active {
-        transform: scale(0.95);
-    }
 `;
 
 export default function ChatInput () {
-    const { username, profileIndex, room } = useUser();
+    const { username, avatarIndex, room } = useUser();
     const [showStickerSelector, setShowStickerSelector] = useState(false);
     const { sendMessage } = useSocket();
 
@@ -68,7 +66,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                profile: profileIndex
+                avatar: avatarIndex
             },
             message: msg,
             isSticker: false,
@@ -85,7 +83,7 @@ export default function ChatInput () {
         const msgObj: MessageInterface = {
             author: {
                 name: username,
-                profile: profileIndex
+                avatar: avatarIndex
             },
             isSticker: true,
             sticker: sticker,
@@ -98,15 +96,15 @@ export default function ChatInput () {
 
 
     return (
-        <Container style={{width:"95%",marginBottom:"15px"}}>
-            <StickerSelector onSelect={handleSendSticker} show={showStickerSelector} />
+        <Container style={{paddingBottom:"20px"}}>
+            <StickerSelector onSelect={handleSendSticker} />
             <InputContainer>
                 <Input
-                    style={{color:"black",paddingInline:"3%"}}
+                    style={{border:"5px",borderColor:getTheme().primary,color:getTheme().text}}
                     id="input-message"
                     rows={1}
                     // value={message}
-                    placeholder="Send a message"
+                    placeholder="   Type a message"
                     // onChange={(e) => setMessage(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
@@ -115,11 +113,8 @@ export default function ChatInput () {
                         }
                     }}
                 />
-                <Button onClick={handleSendMsg}>
-                    <FontAwesomeIcon icon={faPaperPlane} className="text-gray-400" />
-                </Button>
-                <Button onClick={() => setShowStickerSelector(!showStickerSelector)}>
-                    <FontAwesomeIcon icon={faSmile} className="text-gray-400" />
+                <Button onClick={handleSendMsg} style={{color:getTheme().secondary,background:getTheme().text,paddingInline:"5px"}}>
+                    Send
                 </Button>
             </InputContainer>
         </Container>
